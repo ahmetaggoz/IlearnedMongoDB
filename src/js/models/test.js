@@ -1,12 +1,20 @@
-// verilere buradan ulaş
-export default class Search {
-    constructor(keyword) {
-        this.keyword = keyword;
-    }
+const express = require('express')
+const mongoose = require('mongoose')
+const app = express();
 
-    async getResult(){
-        const response = await fetch(`https://dummyjson.com/products/search?q=${this.keyword}`);
-        this.data = await response.json();
-        this.data = this.data.products;
+const uri = 'mongodb+srv://ahmetaggoz1388:Yasam1388*@ilkcluster.64jkf9z.mongodb.net/?retryWrites=true&w=majority'
+
+async function connect(){
+    try{
+        await mongoose.connect(uri);
+        console.log("Connected to MongoDB");
+    }catch(err){
+        console.error(err);
     }
 }
+
+connect()
+
+app.listen(8081, ()=>{
+    console.log("Server started on port 8081")
+})
